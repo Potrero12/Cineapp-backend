@@ -1,6 +1,27 @@
 const { response } = require("express")
 const Actor = require('../models/actor');
 
+const obtenerActores = async(req, res = response) => {
+
+    try {
+
+        //traemos todos los hospitales, filtrando al usuario con su nombre e img
+        const actoresDB = await Actor.find({});
+
+        res.status(201).json({
+            ok: true,
+            actoresDB,
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            ok: false,
+            msg: 'Error en el Servidor'
+        })
+    }
+
+}
+
 const crearActor = async(req, res = response) => {
 
     try {
@@ -22,5 +43,6 @@ const crearActor = async(req, res = response) => {
 }
 
 module.exports = {
+    obtenerActores,
     crearActor
 }
